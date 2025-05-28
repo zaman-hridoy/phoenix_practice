@@ -1,9 +1,8 @@
 defmodule HelloWeb.Router do
-  alias Phoenix.Socket.V1
   use HelloWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {HelloWeb.Layouts, :root}
@@ -16,10 +15,19 @@ defmodule HelloWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # pipeline :auth do
+  #   # plug :browser
+  #   # plug :ensure_authenticated_user
+  #   # plug :ensure_user_owns_review
+
+  #   plug HelloWeb.Authentication
+  # end
+
   scope "/", HelloWeb do
-    pipe_through :browser
+    pipe_through [:browser]
 
     get "/", PageController, :home
+    get "/redirect-test", PageController, :redirect_test
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
 
@@ -31,6 +39,33 @@ defmodule HelloWeb.Router do
     # end
     # resources "/reviews", ReviewController
   end
+
+  # scope("/") do
+  #   pipe_through [:browser]
+
+  #   get "/reviews", PostController, :index
+  #   get "/reviews/:id", PostController, :show
+  # end
+
+  # scope("/") do
+  #   pipe_through [:browser, :auth]
+
+  #   get "/reviews/new", PostController, :new
+  #   post "/reviews", PostController, :create
+  # end
+
+  # forward "/jobs", BackgroundJob.Plug
+
+  # scope("/") do
+  #   pipe_through [:authenticate_user, :ensure_admin]
+
+  #   forward "/jobs", BackgroundJob.Plug, name: "Hello"
+  # end
+
+  # scope("/", AnotherAppWeb) do
+  #   pipe_through :browser
+  #   resources "/posts", PostController
+  # end
 
   # scope("/admin", HelloWeb.Admin) do
   #   pipe_through :browser
@@ -50,9 +85,16 @@ defmodule HelloWeb.Router do
   #   end
   # end
 
+  # scope("/reviews", Helloweb) do
+  #   pipe_through :auth
+  #   resources "/", ReviewController
+  # end
+
   # Other scopes may use custom stacks.
   # scope "/api", HelloWeb do
   #   pipe_through :api
+
+  #   resources "/reviews", ReviewController
   # end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

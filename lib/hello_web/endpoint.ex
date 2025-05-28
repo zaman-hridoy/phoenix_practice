@@ -50,17 +50,17 @@ defmodule HelloWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
 
-  plug :introspect
+  # plug :introspect
 
   plug HelloWeb.Router
 
-  defp introspect(%Plug.Conn{} = conn, _opts) do
-    IO.puts("""
-      Verb: #{inspect(conn.method)}
-      Host: #{inspect(conn.host)}
-      Headers: #{inspect(conn.req_headers)}
-    """)
+  # defp introspect(%Plug.Conn{} = conn, _opts) do
+  #   IO.puts("""
+  #     Verb: #{inspect(conn.method)}
+  #     Host: #{inspect(conn.host)}
+  #     Headers: #{inspect(conn.req_headers)}
+  #   """)
 
-    conn
-  end
+  #   conn
+  # end
 end

@@ -1,3 +1,73 @@
 <section>
-  <h2>Hello World, from {@messenger}!</h2>
+  <h2><.greet messenger="" /></h2>
+  <table>
+    <tr>
+      <th>Number</th>
+      <th>Power</th>
+    </tr>
+    <%= for number <- 1..10 do %>
+    <tr>
+      <td>{number}</td>
+      <td>{number * number}</td>
+    </tr>
+    <% end %>
+  </table>
+
+  <%= if @has_receiver do %>
+  <p>Here is receiver name: {@receiver}</p>
+  <% else %>
+  <p>This message has no receive</p>
+  <% end %> {raw("<b>Bold?</b>")}
+
+  <div title="My Div" class={@class}>
+    <p>{@receiver}</p>
+  </div>
+
+  <%= if @has_receiver do %>
+  <div>hello, {@receiver}</div>
+  <% end %>
+
+  <div :if={!@has_receiver}>
+    Hi, <b class="text-purple-600">{@receiver}</b>
+  </div>
+
+  <ul>
+    <li :for={number <- 1..10}>{number}</li>
+  </ul>
+
+  <HelloWeb.MyComponent.greet />
+  <HelloWeb.MyComponent.celebrate  age={30} />
+  <HelloWeb.MyComponent.notification message="Hello Zaman" phx-click="close" />
+  <br />
+  <HelloWeb.MyComponent.button class="border outline-0 px-5 py-1.5 rounded-md bg-blue-500 text-white">
+    This renders <strong>inside</strong> the button!
+  </HelloWeb.MyComponent.button>
+
+  <HelloWeb.MyComponent.unordered_list :let={fruit} entries={~w(apple banana cherries)}>
+    I Like <b>{fruit}</b>
+  </HelloWeb.MyComponent.unordered_list>
+  
+  <HelloWeb.MyComponent.modal>
+      <:header>
+        My modal title
+      </:header>
+      <div>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure, modi?
+      </div>
+      <:footer>
+        This is the bottom of the modal
+      </:footer>
+  </HelloWeb.MyComponent.modal>
+ 
+
+  <HelloWeb.MyComponent.table rows={[%{name: "Jane", age: "34"}, %{name: "Bob", age: 30}]}>
+    <:column :let={user} label="Name">
+      {user.name}
+    </:column>
+    <:column label="Age" :let={user}>
+      {user.age}
+    </:column>
+  </HelloWeb.MyComponent.table>
+
+  <HelloWeb.MyComponent.landing_hero />
 </section>
